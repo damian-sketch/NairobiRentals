@@ -4,7 +4,7 @@ import { useEffect, useState} from 'react'
 const App = () => {
   const [users, setUsers] = useState([])
   const getData = async() => {
-    const res = await axios.get('/api/users')
+    const res = await axios.get('/users')
     setUsers(res.data)
   }
 
