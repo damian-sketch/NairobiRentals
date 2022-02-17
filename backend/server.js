@@ -4,6 +4,7 @@ import userRoutes from './routes/userRoutes.js'
 import express from 'express'
 import authRoutes from './routes/authRoutes.js'
 import bodyParser from 'body-parser'
+import cors from 'cors';
 
 //connect db
 connectDB()
@@ -12,6 +13,7 @@ dotenv.config()
 
 const app =express()
 
+app.use(cors())
 app.use(bodyParser.json())
 //routes
 app.use('/users', userRoutes)
