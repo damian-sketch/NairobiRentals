@@ -1,16 +1,7 @@
 import mongoose from 'mongoose'
-import Joi from 'joi'
 import bcrypt from 'bcrypt'
 
 const userSchema = mongoose.Schema({
-    firstName: {
-        type: String,
-        required: true
-    },
-    secondName:{
-        type: String,
-        required: true
-    },
     userName: {
         type: String,
         required: [true, 'Enter a username'],
