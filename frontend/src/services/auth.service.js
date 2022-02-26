@@ -15,7 +15,7 @@ class AuthService {
     }
     
     async login(username, password) {
-        return await axios.post(API_URL + "signin", {
+        return await axios.post(API_URL + "login", {
             username,
             password
         }).then(response => {
