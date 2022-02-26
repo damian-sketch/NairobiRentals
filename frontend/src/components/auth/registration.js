@@ -43,11 +43,13 @@ const vemail = value => {
     }
   };
 
-const Registration = () => {
-    const [register, setRegister] = useState('');
+export const Registration = () => {
+    const [register, setRegister] = useState(false);
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [message, setMessage] = useState('')
+    const [success, setSuccess] = useState(false)
     
     function onChangeUsername(e) {
         setUsername(e.target.value)
@@ -58,48 +60,35 @@ const Registration = () => {
     function onChangePassword(e) {
         setPassword(e.target.value)
     }
-    function handleRegister(e) {
-        e.preventDefault();
-        setRegister({
-            message: "",
-            successful: false
+
+     function submitForm(e) {
+      e.preventDefault()
+      AuthService.register(
+          username,
+          email,
+          password
+      ).then((response) =>{
+        if(response.data.message == 'User registered successfully'){
+          setRegister(true);
+          setSuccess(true)
+          setMessage(response.data.message);
+          
+        }else{
+          setRegister(true);
+          setSuccess(false)
+          setMessage(response.data.message ? response.data.message : response.data)
+}
         })
       }
-      
-        function submitForm() {
-            AuthService.register(
-                username,
-                email,
-                password
-            ).then(
-                response =>{
-                    setRegister({
-                        message: response.data.message,
-                        successful: true
-                    });
-                },
-                error => {
-                    const resMessage = 
-                        (error.response &&
-                            error.response.data &&
-                            error.response.data.message) ||
-                            error.message ||
-                            error.toString();
-                            setRegister({
-                                successful: false,
-                                message: resMessage
-                            });
-                }
-            );
-        }
+    
     
 
     return (
         <div className="col-md-12">
-          <Form
-            onSubmit={handleRegister}
-          >
-           
+          < Form onSubmit={submitForm}>
+           {
+             register && <Banner type={ success ? "success" : "error" } message={message} />
+           }
               <div>
                 <div className="form-group">
                   <label htmlFor="username">Username</label>
@@ -135,27 +124,20 @@ const Registration = () => {
                   />
                 </div>
                 <div className="form-group">
-                  <button className="btn btn-primary btn-block" onClick={submitForm}>Sign Up</button>
+                  <button className="btn btn-primary btn-block" type='submit'>Sign Up</button>
                 </div>
               </div>
             
-            {setRegister.message && (
-              <div className="form-group">
-                <div
-                  className={
-                    setRegister.successful
-                      ? "alert alert-success"
-                      : "alert alert-danger"
-                  }
-                  role="alert"
-                >
-                  {setRegister.message}
-                </div>
-              </div>
-            )}
           </Form>
+
       </div>
     )
 }
 
-export default Registration
+export const Banner = ({message, type}) => {
+  return(
+    <div className={type == "error" ? "alert alert-danger" : "alert alert-success"}>
+    <p>{message}</p>
+    </div>
+  )
+  }

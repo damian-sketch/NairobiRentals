@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useEffect, useState} from 'react'
-import Registration from './components/auth/registration'
+import {Registration} from './components/auth/registration'
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const App = () => {
