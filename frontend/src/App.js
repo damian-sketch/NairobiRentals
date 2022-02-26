@@ -1,7 +1,9 @@
 import axios from 'axios'
 import { useEffect, useState} from 'react'
-import {Registration} from './components/auth/registration'
+import {Registration} from './components/registration/registration'
+import {Login} from './components/login/login'
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Routes, Route } from 'react-router-dom';
 
 const App = () => {
   // const [users, setUsers] = useState([])
@@ -15,7 +17,14 @@ const App = () => {
   // }, [])
 
   return (
-    <Registration/>
+    <div>
+      <Routes>
+        <Route exact path='/' element={<Registration/>} />
+        <Route exact path='/login' element={<Login/>} />
+      </Routes>
+        
+    </div>
+    
   )
 }
 

@@ -1,5 +1,6 @@
 import './styles.css'
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import { isEmail } from "validator";
@@ -84,7 +85,8 @@ export const Registration = () => {
     
 
     return (
-        <div className="col-md-12">
+      <div className='row d-flex justify-content-center'>
+        <div className="col-md-4">
           < Form onSubmit={submitForm}>
            {
              register && <Banner type={ success ? "success" : "error" } message={message} />
@@ -130,6 +132,13 @@ export const Registration = () => {
             
           </Form>
 
+          <div>
+            <br/>
+            <p>Already signed up?</p>
+            <NavLink to="/login">Login</NavLink>
+          </div>
+
+      </div>
       </div>
     )
 }
