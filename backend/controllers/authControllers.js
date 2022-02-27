@@ -1,6 +1,7 @@
 import User from '../models/userModel.js'
 import asyncHandler from 'express-async-handler'
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 //function to register a user
 export const registerUser = asyncHandler(async(req, res) => {
@@ -34,4 +35,33 @@ export const registerUser = asyncHandler(async(req, res) => {
     }
        
        
+})
+
+export const LoginUser = asyncHandler(async(req, res) => {
+
+        const {username, password } = req.body;
+        // check if user exists
+        const user = await User.findOne({userName: username})
+       
+        if(!user)
+             res
+                .status(400)
+                .json({msg: "This user is not registered!"});
+
+        // check if provided password matches user pass
+        const isMatch = await bcrypt.compare(password, user.password)   
+           
+        if (!isMatch) return res.status(401).json({msg: "Invalid credentials!"})
+
+        // create JWT and store it as a cookie in browser
+        const token = jwt.sign({ id: user._id, type:'user'}, process.env.JWT, {expiresIn: '2h'});
+        res.cookie('token', token, { maxAge: 7200000, httpOnly: true});
+         res
+        .status(200)
+        .json({msg: "token created"})
+         
+        
+
+
+   
 })

@@ -1,4 +1,5 @@
 import axios from "axios";
+
 const API_URL = "http://localhost:5000/";
 
 class AuthService {
@@ -15,12 +16,14 @@ class AuthService {
     }
     
     async login(username, password) {
+        axios.defaults.withCredentials = true;
         return await axios.post(API_URL + "login", {
             username,
-            password
+            password,
+            withCredentials: true
         }).then(response => {
-            if(response.data.accessToken) {
-                localStorage.setItem("user", JSON.stringify(response.data))
+            if(response.status == 200) {
+                localStorage.setItem("user", JSON.stringify(username))
             }
             return response.data
         })

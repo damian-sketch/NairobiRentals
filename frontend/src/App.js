@@ -4,6 +4,7 @@ import {Registration} from './components/registration/registration'
 import {Login} from './components/login/login'
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Routes, Route } from 'react-router-dom';
+import { Posts } from './components/posts/posts';
 
 const App = () => {
   // const [users, setUsers] = useState([])
@@ -19,8 +20,9 @@ const App = () => {
   return (
     <div>
       <Routes>
-        <Route exact path='/' element={<Registration/>} />
-        <Route exact path='/login' element={<Login/>} />
+        <Route path='/register' element={<Registration/>} />
+        <Route path='/login' element={<Login/>} />
+        <Route path='/' element={<Posts/>} />
       </Routes>
         
     </div>

@@ -1,6 +1,6 @@
 import './styles.css'
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import { isEmail } from "validator";
@@ -46,9 +46,8 @@ const vemail = value => {
 
 export const Login = () => {
     const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [message, setMessage] = useState('')
+    const navigate = useNavigate()
     const [success, setSuccess] = useState(false)
     
     function onChangeUsername(e) {
@@ -63,16 +62,9 @@ export const Login = () => {
       AuthService.login(
           username,
           password
-      ).then((response) =>{
-        if(response.data.message == 'User registered successfully'){
-          setSuccess(true)
-          setMessage(response.data.message);
-          
-        }else{
-          setSuccess(false)
-          setMessage(response.data.message ? response.data.message : response.data)
-}
-        })
+      ).then((
+        navigate('/')
+      ))
       }
     
     
