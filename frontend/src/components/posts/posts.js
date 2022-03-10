@@ -9,7 +9,6 @@ export const Posts = () => {
      useEffect(() => {
          async function fetchPosts () {
             let posts = await PostService.getAllPosts()
-            
             setPosts(posts)
          }
          fetchPosts();

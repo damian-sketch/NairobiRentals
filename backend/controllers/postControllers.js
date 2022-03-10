@@ -20,9 +20,11 @@ export const getPosts = asyncHandler(async(req, res) => {
         }else{
             res.json('Bad token')
         }
-    } catch(e){
-        res.status(401).json('You need to login first')
-        // res.redirect('/login')
+    } catch(error){
+        
+        const posts = 'You need to login first'
+        res.json(posts)
+        
     }
     
     
