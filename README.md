@@ -19,3 +19,10 @@ npm start
 # Contributions
 
 To get started with any available feature or issue, ensure to create a branch and submit a pull request once done
+
+# Resources
+
+[React docs](https://reactjs.org/docs/getting-started.html)
+[Express](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs)
+[Nodejs](https://www.w3schools.com/nodejs/nodejs_intro.asp)
+[MongoDB](https://www.mongodb.com/languages/mern-stack-tutorial)
