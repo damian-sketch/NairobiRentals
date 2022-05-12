@@ -1,11 +1,11 @@
-import axios from 'axios'
-import { useEffect, useState} from 'react'
-import {Registration} from './components/registration/registration'
-import {Login} from './components/login/login'
+import "./App.css";
+import { Registration } from "./components/registration/registration";
+import { Login } from "./components/login/login";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Routes, Route } from 'react-router-dom';
-import { Posts } from './components/posts/posts';
-
+import { Routes, Route } from "react-router-dom";
+import { Posts } from "./components/posts/posts";
+import { Houses } from "./components/houses/houses";
+import { Header } from "./components/header/header";
 const App = () => {
   // const [users, setUsers] = useState([])
   // const getData = async() => {
@@ -18,16 +18,18 @@ const App = () => {
   // }, [])
 
   return (
-    <div>
-      <Routes>
-        <Route path='/register' element={<Registration/>} />
-        <Route path='/login' element={<Login/>} />
-        <Route path='/' element={<Posts/>} />
-      </Routes>
-        
-    </div>
-    
-  )
-}
+    <>
+      <Header />
+      <div className="wrapperDiv">
+        <Routes>
+          <Route path="/register" element={<Registration />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Posts />} />
+          <Route path="/houses" element={<Houses />} />
+        </Routes>
+      </div>
+    </>
+  );
+};
 
 export default App;
