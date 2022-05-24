@@ -1,12 +1,17 @@
 import "./styles.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import authService from "../../services/auth.service";
+
 export const Header = () => {
   const [click, setClick] = useState(false);
 
   const handleClick = () => setClick(!click);
   const Close = () => setClick(false);
-
+  const loggedInUser = localStorage.getItem("user");
+  const logoutUser = async () => {
+    await authService.logout();
+  };
   return (
     <div className="header">
       <div className={click ? "main-container" : ""} onClick={() => Close()} />
@@ -42,17 +47,6 @@ export const Header = () => {
             <li className="nav-item">
               <NavLink
                 exact
-                to="/blog"
-                activeClassName="active"
-                className="nav-links"
-                onClick={click ? handleClick : null}
-              >
-                Blog
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                exact
                 to="/contact"
                 activeClassName="active"
                 className="nav-links"
@@ -61,6 +55,31 @@ export const Header = () => {
                 Contact Us
               </NavLink>
             </li>
+            {loggedInUser ? (
+              <li className="nav-item">
+                <NavLink
+                  exact
+                  to="/"
+                  activeClassName="active"
+                  className="nav-links"
+                  onClick={logoutUser}
+                >
+                  Logout
+                </NavLink>
+              </li>
+            ) : (
+              <li className="nav-item">
+                <NavLink
+                  exact
+                  to="/login"
+                  activeClassName="active"
+                  className="nav-links"
+                  onClick={click ? handleClick : null}
+                >
+                  Login
+                </NavLink>
+              </li>
+            )}
           </ul>
           <div className="nav-icon" onClick={handleClick}>
             <i className={click ? "fa fa-times" : "fa fa-bars"}></i>
