@@ -11,6 +11,7 @@ export const Header = () => {
 
   const logoutUser = async () => {
     await authService.logout();
+    window.location.reload(true);
   };
 
   useEffect(() => {

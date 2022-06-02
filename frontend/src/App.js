@@ -6,6 +6,8 @@ import { Routes, Route } from "react-router-dom";
 import { Posts } from "./components/posts/posts";
 import { Houses } from "./components/houses/houses";
 import { Header } from "./components/header/header";
+import { HouseDetails } from "./components/details/details";
+
 const App = () => {
   return (
     <>
@@ -16,6 +18,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<Posts />} />
           <Route path="/houses" element={<Houses />} />
+          <Route path="/details/:id" element={<HouseDetails />} />
         </Routes>
       </div>
     </>

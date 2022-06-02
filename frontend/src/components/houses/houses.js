@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import house from "../../assets/house.jpg";
 
 export const Houses = () => {
@@ -10,9 +11,9 @@ export const Houses = () => {
         <p className="card-text">
           This is a 4br apartment located in the heart of Kilimani
         </p>
-        <a href="#" className="card-link">
+        <Link to={`/details/${i}`} className="card-link">
           Details
-        </a>
+        </Link>
       </div>
     </div>
   ));

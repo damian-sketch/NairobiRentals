@@ -61,7 +61,7 @@ export const Login = () => {
                 />
               </div>
               {formik.errors.username ? (
-                <div>{formik.errors.username}</div>
+                <div className="text-danger">{formik.errors.username}</div>
               ) : null}
               <div className="form-group">
                 <label htmlFor="password">Password</label>
@@ -74,7 +74,7 @@ export const Login = () => {
                 />
               </div>
               {formik.errors.password ? (
-                <div>{formik.errors.password}</div>
+                <div className="text-danger">{formik.errors.password}</div>
               ) : null}
               <div className="form-group">
                 <button className="btn btn-primary btn-block" type="submit">
@@ -88,7 +88,7 @@ export const Login = () => {
           <div className="register">
             <br />
             <p>Don't have an account?</p>
-            <NavLink to="/">Register</NavLink>
+            <NavLink to="/register">Register</NavLink>
           </div>
         </div>
       </div>
