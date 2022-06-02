@@ -34,6 +34,7 @@ class AuthService {
   async logout() {
     localStorage.removeItem("user");
     await axios.post(API_URL + "logout", { credentials: "same-origin" });
+    window.location.reload(true);
   }
 }
 

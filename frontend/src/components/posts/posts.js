@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./styles.css";
 
@@ -6,6 +7,12 @@ export const Posts = (props) => {
   function fetchPosts() {
     navigate("/houses");
   }
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (!user) {
+      navigate("/login");
+    }
+  }, []);
 
   return (
     <div className="container">

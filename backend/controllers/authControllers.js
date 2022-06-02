@@ -54,6 +54,10 @@ export const LoginUser = asyncHandler(async (req, res) => {
 });
 
 export const LogoutUser = asyncHandler(async (req, res) => {
-  res.clearCookie("token", { path: "/", domain: "localhost" });
+  res.cookie("testtoken", {
+    path: "/",
+    domain: "localhost",
+    expires: Date.now(),
+  });
   res.status(200);
 });

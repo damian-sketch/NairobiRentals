@@ -5,26 +5,34 @@ import authService from "../../services/auth.service";
 
 export const Header = () => {
   const [click, setClick] = useState(false);
-
+  const [logged, setLogged] = useState(false);
   const handleClick = () => setClick(!click);
   const Close = () => setClick(false);
-  const loggedInUser = localStorage.getItem("user");
+
   const logoutUser = async () => {
     await authService.logout();
   };
+
+  useEffect(() => {
+    let user = localStorage.getItem("user");
+    if (user) {
+      setLogged(true);
+    }
+  });
+
   return (
     <div className="header">
       <div className={click ? "main-container" : ""} onClick={() => Close()} />
       <nav className="navbar" onClick={(e) => e.stopPropagation()}>
         <div className="nav-container">
-          <NavLink exact to="/" className="nav-logo">
+          <NavLink exact="true" to="/" className="nav-logo">
             HouseHunters
             <i className="fa fa-code"></i>
           </NavLink>
           <ul className={click ? "nav-menu active" : "nav-menu"}>
             <li className="nav-item">
               <NavLink
-                exact
+                exact="true"
                 to="/"
                 activeClassName="active"
                 className="nav-links"
@@ -35,7 +43,7 @@ export const Header = () => {
             </li>
             <li className="nav-item">
               <NavLink
-                exact
+                exact="true"
                 to="/about"
                 activeClassName="active"
                 className="nav-links"
@@ -46,7 +54,7 @@ export const Header = () => {
             </li>
             <li className="nav-item">
               <NavLink
-                exact
+                exact="true"
                 to="/contact"
                 activeClassName="active"
                 className="nav-links"
@@ -55,10 +63,10 @@ export const Header = () => {
                 Contact Us
               </NavLink>
             </li>
-            {loggedInUser ? (
+            {logged ? (
               <li className="nav-item">
                 <NavLink
-                  exact
+                  exact="true"
                   to="/"
                   activeClassName="active"
                   className="nav-links"
@@ -70,7 +78,7 @@ export const Header = () => {
             ) : (
               <li className="nav-item">
                 <NavLink
-                  exact
+                  exact="true"
                   to="/login"
                   activeClassName="active"
                   className="nav-links"

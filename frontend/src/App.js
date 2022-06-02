@@ -7,16 +7,6 @@ import { Posts } from "./components/posts/posts";
 import { Houses } from "./components/houses/houses";
 import { Header } from "./components/header/header";
 const App = () => {
-  // const [users, setUsers] = useState([])
-  // const getData = async() => {
-  //   const res = await axios.get('/api/users')
-  //   setUsers(res.data)
-  // }
-
-  // useEffect(() => {
-  //   getData()
-  // }, [])
-
   return (
     <>
       <Header />
