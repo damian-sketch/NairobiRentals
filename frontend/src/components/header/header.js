@@ -1,25 +1,38 @@
 import "./styles.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import authService from "../../services/auth.service";
+
 export const Header = () => {
   const [click, setClick] = useState(false);
-
+  const [logged, setLogged] = useState(false);
   const handleClick = () => setClick(!click);
   const Close = () => setClick(false);
+
+  const logoutUser = async () => {
+    await authService.logout();
+  };
+
+  useEffect(() => {
+    let user = localStorage.getItem("user");
+    if (user) {
+      setLogged(true);
+    }
+  });
 
   return (
     <div className="header">
       <div className={click ? "main-container" : ""} onClick={() => Close()} />
       <nav className="navbar" onClick={(e) => e.stopPropagation()}>
         <div className="nav-container">
-          <NavLink exact to="/" className="nav-logo">
+          <NavLink exact="true" to="/" className="nav-logo">
             HouseHunters
             <i className="fa fa-code"></i>
           </NavLink>
           <ul className={click ? "nav-menu active" : "nav-menu"}>
             <li className="nav-item">
               <NavLink
-                exact
+                exact="true"
                 to="/"
                 activeClassName="active"
                 className="nav-links"
@@ -30,7 +43,7 @@ export const Header = () => {
             </li>
             <li className="nav-item">
               <NavLink
-                exact
+                exact="true"
                 to="/about"
                 activeClassName="active"
                 className="nav-links"
@@ -41,18 +54,7 @@ export const Header = () => {
             </li>
             <li className="nav-item">
               <NavLink
-                exact
-                to="/blog"
-                activeClassName="active"
-                className="nav-links"
-                onClick={click ? handleClick : null}
-              >
-                Blog
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                exact
+                exact="true"
                 to="/contact"
                 activeClassName="active"
                 className="nav-links"
@@ -61,6 +63,31 @@ export const Header = () => {
                 Contact Us
               </NavLink>
             </li>
+            {logged ? (
+              <li className="nav-item">
+                <NavLink
+                  exact="true"
+                  to="/"
+                  activeClassName="active"
+                  className="nav-links"
+                  onClick={logoutUser}
+                >
+                  Logout
+                </NavLink>
+              </li>
+            ) : (
+              <li className="nav-item">
+                <NavLink
+                  exact="true"
+                  to="/login"
+                  activeClassName="active"
+                  className="nav-links"
+                  onClick={click ? handleClick : null}
+                >
+                  Login
+                </NavLink>
+              </li>
+            )}
           </ul>
           <div className="nav-icon" onClick={handleClick}>
             <i className={click ? "fa fa-times" : "fa fa-bars"}></i>

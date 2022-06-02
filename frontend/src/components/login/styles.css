@@ -1,0 +1,16 @@
+.loginForm {
+  width: 400px;
+  margin: auto;
+}
+
+.form-group {
+  margin: 10px;
+}
+
+.register {
+  width: 250px;
+}
+
+.form-control {
+  width: auto !important;
+}
