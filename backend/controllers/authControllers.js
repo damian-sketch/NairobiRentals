@@ -52,12 +52,3 @@ export const LoginUser = asyncHandler(async (req, res) => {
   res.cookie("token", token, { maxAge: 7200000, httpOnly: true, path: "/" });
   res.status(200).json({ msg: "token created" });
 });
-
-export const LogoutUser = asyncHandler(async (req, res) => {
-  res.cookie("testtoken", {
-    path: "/",
-    domain: "localhost",
-    expires: Date.now(),
-  });
-  res.status(200);
-});
