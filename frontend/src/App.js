@@ -7,6 +7,7 @@ import { Posts } from "./components/posts/posts";
 import { Houses } from "./components/houses/houses";
 import { Header } from "./components/header/header";
 import { HouseDetails } from "./components/details/details";
+import { SellersPortal } from "./components/sellersPortal/sellersPortal";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
           <Route path="/" element={<Posts />} />
           <Route path="/houses" element={<Houses />} />
           <Route path="/details/:id" element={<HouseDetails />} />
+          <Route path="/portal" element={<SellersPortal />} />
         </Routes>
       </div>
     </>

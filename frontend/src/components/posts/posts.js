@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./styles.css";
 
-export const Posts = (props) => {
+export const Posts = () => {
   const navigate = useNavigate();
   function fetchPosts() {
     navigate("/houses");

@@ -2,22 +2,33 @@ import mongoose from "mongoose";
 
 const houseSchema = mongoose.Schema(
   {
-    location: {
+    photos: {
       type: String,
-      required: [true, "Enter a location"],
+      required: [true, "Upload at least 4 photos"],
     },
     price: {
       type: String,
       required: [true, "Enter a price"],
     },
-    description: {
+    location: {
       type: String,
-      required: [true, "Enter a description"],
+      required: [true, "Enter a location"],
     },
-    isAdmin: {
+    bedrooms: {
+      type: String,
+      required: [true, "Enter bedroom number"],
+    },
+    bathrooms: {
+      type: String,
+      required: [true, "Enter bathroom number"],
+    },
+    details: {
+      type: String,
+      required: [true, "Enter additional details"],
+    },
+    balcony: {
       type: Boolean,
-      required: true,
-      default: false,
+      required: [true, "Is there a balcony?"],
     },
   },
   {
@@ -25,6 +36,6 @@ const houseSchema = mongoose.Schema(
   }
 );
 
-const User = mongoose.model("User", userSchema);
+const House = mongoose.model("House", houseSchema);
 
-export default User;
+export default House;
