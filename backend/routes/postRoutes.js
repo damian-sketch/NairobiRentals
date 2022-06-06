@@ -1,10 +1,8 @@
 import express from "express";
+import { addHouse } from "../controllers/houseControllers.js";
 const router = express.Router();
 
-// // route to get all posts
-// router.route('/').get(getPosts)
-
-// // route to get post by id
-// router.route('/:id').get(getPostById)
+// route to submit a new post
+router.post("/submit-post", addHouse);
 
 export default router;
