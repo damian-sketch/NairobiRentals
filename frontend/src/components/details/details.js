@@ -1,7 +1,16 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import house from "../../assets/house.jpg";
 import seller from "../../assets/seller.png";
 import "./styles.css";
 export const HouseDetails = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (!user) {
+      navigate("/login");
+    }
+  }, []);
   return (
     <div className="detailsWrapper">
       <div className="card" style={{ width: "58rem" }}>
