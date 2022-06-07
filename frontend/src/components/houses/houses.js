@@ -1,7 +1,15 @@
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import house from "../../assets/house.jpg";
 
 export const Houses = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (!user) {
+      navigate("/login");
+    }
+  }, []);
   return [...Array(8)].map((e, i) => (
     <div className="card" style={{ width: "18rem" }} key={i}>
       <img className="card-img-top" src={house} alt="Card image cap"></img>

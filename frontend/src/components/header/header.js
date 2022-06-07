@@ -45,12 +45,12 @@ export const Header = () => {
             <li className="nav-item">
               <NavLink
                 exact="true"
-                to="/about"
+                to="/houses"
                 activeClassName="active"
                 className="nav-links"
                 onClick={click ? handleClick : null}
               >
-                About
+                Properties
               </NavLink>
             </li>
             <li className="nav-item">
