@@ -3,35 +3,73 @@ import PostService from "../../services/post.service";
 import "./styles.css";
 
 export const SellersPortal = () => {
-  const [selectedImage, setSelectedImage] = useState(null);
-  let arr = [];
-  arr.push(selectedImage);
-  let url = URL.createObjectURL(new File(arr, "image"));
+  const [newHouse, setNewHouse] = useState({
+    bedrooms: "",
+    bathrooms: "",
+    balcony: "",
+    photos: "",
+  });
 
-  const postPicture = async () => {
-    try {
-      await PostService.submitPost(url);
-    } catch (error) {
-      console.log(error);
-    }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    console.log(newHouse);
+    await PostService.submitPost(newHouse);
+  };
+  const handleChange = (e) => {
+    setNewHouse({ ...newHouse, [e.target.name]: e.target.value });
   };
 
+  const handlePhoto = (e) => {
+    setNewHouse({ ...newHouse, photos: e.target.files[0] });
+  };
   return (
-    <div className="container">
+    <form encType="multipart/form-data" onSubmit={handleSubmit}>
       <div className="photoUpload">
-        <img alt="not found" width={"250px"} src={url} />
         <h1>UPLOAD PROPERTY PICTURES</h1>
         <input
           type="file"
-          name="myImage"
+          name="photos"
           multiple
-          accept="image/*"
-          onChange={(event) => {
-            setSelectedImage(event.target.files[0]);
-          }}
+          accept=".png, .jpg, .jpeg"
+          onChange={handlePhoto}
         />
-        <button onClick={postPicture}>Submit</button>
       </div>
-    </div>
+      <div>
+        <h3>Details</h3>
+        Bathrooms:
+        <input
+          type="text"
+          value={newHouse.bathrooms}
+          onChange={handleChange}
+          name="bathrooms"
+        />
+        Bedrooms:
+        <input
+          type="text"
+          value={newHouse.bedrooms}
+          onChange={handleChange}
+          name="bedrooms"
+        />
+        Balcony:
+        <input
+          type="radio"
+          id="yes"
+          name="balcony"
+          value="true"
+          onChange={handleChange}
+        />
+        <label> yes</label>
+        <input
+          type="radio"
+          id="no"
+          name="balcony"
+          value="false"
+          onChange={handleChange}
+        />
+        <label> no</label>
+        <input type="submit" />
+      </div>
+    </form>
   );
 };
