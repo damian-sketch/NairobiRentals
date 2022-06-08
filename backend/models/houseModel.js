@@ -4,7 +4,19 @@ const houseSchema = mongoose.Schema(
   {
     photos: {
       type: String,
-      required: [true, "Upload at least 4 photos"],
+      required: [true],
+    },
+    bedrooms: {
+      type: String,
+      required: [true],
+    },
+    bathrooms: {
+      type: String,
+      required: [true],
+    },
+    balcony: {
+      type: String,
+      required: [true],
     },
   },
   {
