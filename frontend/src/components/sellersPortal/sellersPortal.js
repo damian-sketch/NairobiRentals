@@ -3,6 +3,7 @@ import PostService from "../../services/post.service";
 import storage from "../../firebase.js";
 import "./styles.css";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { message } from "../../services/post.service";
 
 export const SellersPortal = () => {
   const [newHouse, setNewHouse] = useState({
@@ -11,13 +12,13 @@ export const SellersPortal = () => {
     balcony: "",
     photos: "",
   });
-  const [percent, setPercent] = useState(0);
-
+  let postServ = new PostService("");
+  let feedback = "";
   const handleSubmit = async (e) => {
     e.preventDefault();
-    handleUpload();
-    console.log(newHouse.photos);
-    await PostService.submitPost(newHouse);
+    await handleUpload();
+    await postServ.submitPost(newHouse);
+    feedback = postServ.message;
   };
   const handleChange = (e) => {
     setNewHouse({ ...newHouse, [e.target.name]: e.target.value });
@@ -27,7 +28,7 @@ export const SellersPortal = () => {
     setNewHouse({ ...newHouse, photos: e.target.files[0] });
   };
 
-  const handleUpload = () => {
+  const handleUpload = async () => {
     let file = newHouse.photos;
     if (!newHouse.photos) {
       alert("Please choose a photo first");
@@ -41,8 +42,6 @@ export const SellersPortal = () => {
         const percent = Math.round(
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         );
-
-        setPercent(percent);
       },
       (err) => console.log(err),
       () => {
@@ -51,11 +50,15 @@ export const SellersPortal = () => {
         });
       }
     );
+    return newHouse;
   };
   return (
     <form encType="multipart/form-data" onSubmit={handleSubmit}>
       <div className="photoUpload">
         <h1>UPLOAD PROPERTY PICTURES</h1>
+        <p className={feedback.includes("Success") ? "success" : "danger"}>
+          {feedback}
+        </p>
         <input
           type="file"
           name="photos"
@@ -63,7 +66,6 @@ export const SellersPortal = () => {
           accept=".png, .jpg, .jpeg"
           onChange={handlePhoto}
         />
-        <p>{percent} "% done"</p>
       </div>
       <div>
         <h3>Details</h3>
