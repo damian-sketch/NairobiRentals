@@ -1,6 +1,8 @@
 import { useState } from "react";
 import PostService from "../../services/post.service";
+import storage from "../../firebase.js";
 import "./styles.css";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 export const SellersPortal = () => {
   const [newHouse, setNewHouse] = useState({
@@ -9,11 +11,12 @@ export const SellersPortal = () => {
     balcony: "",
     photos: "",
   });
+  const [percent, setPercent] = useState(0);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    console.log(newHouse);
+    handleUpload();
+    console.log(newHouse.photos);
     await PostService.submitPost(newHouse);
   };
   const handleChange = (e) => {
@@ -22,6 +25,32 @@ export const SellersPortal = () => {
 
   const handlePhoto = (e) => {
     setNewHouse({ ...newHouse, photos: e.target.files[0] });
+  };
+
+  const handleUpload = () => {
+    let file = newHouse.photos;
+    if (!newHouse.photos) {
+      alert("Please choose a photo first");
+    }
+
+    const storageRef = ref(storage, `/files/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const percent = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+
+        setPercent(percent);
+      },
+      (err) => console.log(err),
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+          setNewHouse({ ...newHouse, photos: url });
+        });
+      }
+    );
   };
   return (
     <form encType="multipart/form-data" onSubmit={handleSubmit}>
@@ -34,6 +63,7 @@ export const SellersPortal = () => {
           accept=".png, .jpg, .jpeg"
           onChange={handlePhoto}
         />
+        <p>{percent} "% done"</p>
       </div>
       <div>
         <h3>Details</h3>
