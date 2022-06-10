@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const houseSchema = mongoose.Schema(
   {
-    photos: {
+    bathrooms: {
       type: String,
       required: [true],
     },
@@ -10,11 +10,11 @@ const houseSchema = mongoose.Schema(
       type: String,
       required: [true],
     },
-    bathrooms: {
+    balcony: {
       type: String,
       required: [true],
     },
-    balcony: {
+    photos: {
       type: String,
       required: [true],
     },
