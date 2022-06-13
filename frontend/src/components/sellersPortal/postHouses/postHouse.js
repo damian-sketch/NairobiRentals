@@ -1,38 +1,34 @@
-import { useState } from "react";
-import PostService from "../../services/post.service";
-import storage from "../../firebase.js";
+import { useEffect, useState } from "react";
+import postService from "../../../services/post.service";
+import storage from "../../../firebase.js";
 import "./styles.css";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { message } from "../../services/post.service";
 
-export const SellersPortal = () => {
+export const PostHouse = () => {
   const [newHouse, setNewHouse] = useState({
     bedrooms: "",
     bathrooms: "",
     balcony: "",
     photos: "",
   });
-  let postServ = new PostService("");
+
   let feedback = "";
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await handleUpload();
-    await postServ.submitPost(newHouse);
-    feedback = postServ.message;
-  };
+  const notify = () => toast("Uploaded Successfully!");
+
   const handleChange = (e) => {
     setNewHouse({ ...newHouse, [e.target.name]: e.target.value });
   };
 
-  const handlePhoto = (e) => {
-    setNewHouse({ ...newHouse, photos: e.target.files[0] });
-  };
-
-  const handleUpload = async () => {
-    let file = newHouse.photos;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     if (!newHouse.photos) {
       alert("Please choose a photo first");
     }
+    postService.submitPost(newHouse);
+  };
+
+  const handleUpload = async (e) => {
+    let file = e.target.files[0];
 
     const storageRef = ref(storage, `/files/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
@@ -50,8 +46,8 @@ export const SellersPortal = () => {
         });
       }
     );
-    return newHouse;
   };
+
   return (
     <form encType="multipart/form-data" onSubmit={handleSubmit}>
       <div className="photoUpload">
@@ -64,7 +60,7 @@ export const SellersPortal = () => {
           name="photos"
           multiple
           accept=".png, .jpg, .jpeg"
-          onChange={handlePhoto}
+          onChange={handleUpload}
         />
       </div>
       <div>
