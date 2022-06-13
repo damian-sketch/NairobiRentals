@@ -22,6 +22,5 @@ export const addHouse = asyncHandler(async (req, res) => {
 
 export const getHouse = asyncHandler(async (req, res) => {
   const houses = await House.find();
-  const src = houses[3].photos;
-  res.send(src);
+  res.send(houses);
 });

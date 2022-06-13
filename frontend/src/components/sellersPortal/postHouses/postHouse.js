@@ -13,7 +13,6 @@ export const PostHouse = () => {
   });
 
   let feedback = "";
-  const notify = () => toast("Uploaded Successfully!");
 
   const handleChange = (e) => {
     setNewHouse({ ...newHouse, [e.target.name]: e.target.value });

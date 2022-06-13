@@ -8,7 +8,12 @@ class PostService {
   }
 
   async getAllPosts() {
-    return await axios.get(API_URL + "posts", { withCredentials: true });
+    return await axios
+      .get(API_URL + "posts", { withCredentials: true })
+      .then((response) => {
+        let data = response.data;
+        return data;
+      });
   }
 }
 
