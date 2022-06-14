@@ -46,6 +46,7 @@ const vpassword = (value) => {
 export const Registration = () => {
   const [register, setRegister] = useState(false);
   const [username, setUsername] = useState("");
+  const [fullnames, setFullNames] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -53,6 +54,9 @@ export const Registration = () => {
 
   function onChangeUsername(e) {
     setUsername(e.target.value);
+  }
+  function onChangeFullname(e) {
+    setFullNames(e.target.value);
   }
   function onChangeEmail(e) {
     setEmail(e.target.value);
@@ -63,19 +67,21 @@ export const Registration = () => {
 
   function submitForm(e) {
     e.preventDefault();
-    AuthService.register(username, email, password).then((response) => {
-      if (response.data.message == "User registered successfully") {
-        setRegister(true);
-        setSuccess(true);
-        setMessage(response.data.message);
-      } else {
-        setRegister(true);
-        setSuccess(false);
-        setMessage(
-          response.data.message ? response.data.message : response.data
-        );
+    AuthService.register(fullnames, username, email, password).then(
+      (response) => {
+        if (response.data.message == "User registered successfully") {
+          setRegister(true);
+          setSuccess(true);
+          setMessage(response.data.message);
+        } else {
+          setRegister(true);
+          setSuccess(false);
+          setMessage(
+            response.data.message ? response.data.message : response.data
+          );
+        }
       }
-    });
+    );
   }
 
   return (
@@ -87,6 +93,17 @@ export const Registration = () => {
               <Banner type={success ? "success" : "error"} message={message} />
             )}
             <div>
+              <div className="form-group">
+                <label htmlFor="fullnames">Full Names</label>
+                <Input
+                  type="text"
+                  className="form-control"
+                  name="fullnames"
+                  value={fullnames}
+                  onChange={onChangeFullname}
+                  validations={[required]}
+                />
+              </div>
               <div className="form-group">
                 <label htmlFor="username">Username</label>
                 <Input

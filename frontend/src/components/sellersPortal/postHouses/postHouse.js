@@ -12,6 +12,7 @@ export const PostHouse = () => {
     bathrooms: "",
     balcony: "",
     photos: "",
+    owner: localStorage.getItem("user"),
   });
 
   let feedback = "";

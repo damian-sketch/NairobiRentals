@@ -1,5 +1,6 @@
 import asyncHandler from "express-async-handler";
 import House from "../models/houseModel.js";
+import User from "../models/userModel.js";
 
 export const addHouse = asyncHandler(async (req, res) => {
   const house = req.body.newHouse;
@@ -10,6 +11,7 @@ export const addHouse = asyncHandler(async (req, res) => {
     bedrooms: house.bedrooms,
     balcony: house.balcony,
     photos: house.photos,
+    owner: house.owner,
   });
 
   dbHouse.save(function (err) {
