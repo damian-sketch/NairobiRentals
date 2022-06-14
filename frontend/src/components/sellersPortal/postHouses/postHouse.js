@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import postService from "../../../services/post.service";
 import storage from "../../../firebase.js";
 import "./styles.css";
@@ -6,6 +6,8 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 export const PostHouse = () => {
   const [newHouse, setNewHouse] = useState({
+    location: "",
+    rent: "",
     bedrooms: "",
     bathrooms: "",
     balcony: "",
@@ -45,6 +47,7 @@ export const PostHouse = () => {
         });
       }
     );
+    alert("Photo uploaded successfully");
   };
 
   return (
@@ -64,6 +67,20 @@ export const PostHouse = () => {
       </div>
       <div>
         <h3>Details</h3>
+        Location:
+        <input
+          type="text"
+          value={newHouse.location}
+          onChange={handleChange}
+          name="location"
+        />
+        Rent per month:
+        <input
+          type="text"
+          value={newHouse.rent}
+          onChange={handleChange}
+          name="rent"
+        />
         Bathrooms:
         <input
           type="text"
