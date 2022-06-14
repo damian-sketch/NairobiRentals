@@ -15,6 +15,15 @@ class PostService {
         return data;
       });
   }
+
+  async getSinglePost(id) {
+    return await axios({
+      method: "get",
+      url: API_URL + "posts/post-details",
+      data: id,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
 }
 
 export default new PostService();

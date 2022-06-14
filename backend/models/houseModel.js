@@ -2,6 +2,14 @@ import mongoose from "mongoose";
 
 const houseSchema = mongoose.Schema(
   {
+    location: {
+      type: String,
+      required: [true],
+    },
+    rent: {
+      type: String,
+      required: [true],
+    },
     bathrooms: {
       type: String,
       required: [true],
