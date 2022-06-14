@@ -48,7 +48,7 @@ export const HouseDetails = () => {
           <ul>
             <h4>Seller's profile</h4>
             <img className="sellerImg" src={seller} alt="Card image cap"></img>
-            <li>Taques Muromo</li>
+            <li>Posted by:{houseData.owner}</li>
             <li>+2547847389938</li>
             <li>test@email.com</li>
           </ul>

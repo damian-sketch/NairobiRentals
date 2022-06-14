@@ -18,6 +18,7 @@ export const registerUser = asyncHandler(async (req, res) => {
     user.password = await bcrypt.hash(req.body.password, 10);
 
     const dbUser = new User({
+      fullNames: user.fullnames,
       userName: user.username.toLowerCase(),
       email: user.email.toLowerCase(),
       password: user.password,
