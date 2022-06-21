@@ -36,11 +36,3 @@
     transform: rotate(360deg);
   }
 }
-
-.wrapperDiv {
-  display: flex;
-  column-gap: 15px;
-  row-gap: 15px;
-  margin: 10px;
-  flex-wrap: wrap;
-}

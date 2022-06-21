@@ -5,7 +5,8 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import AuthService from "../../services/auth.service";
 import { useFormik } from "formik";
-
+import { FcGoogle } from "react-icons/fc";
+import { FaApple, FaFacebook } from "react-icons/fa";
 const validate = (values) => {
   let errors = {};
   if (values.username === "") {
@@ -102,9 +103,17 @@ export const Login = () => {
         </div>
       </div>
       <div className="thirdPartyLogin">
-        <div>Sign In with Google</div>
-        <div>Sign In with Google</div>
-        <div>Sign In with Google</div>
+        <div className="authApp">
+          <FcGoogle />
+          Sign In with Google
+        </div>
+        <div className="authApp">
+          <FaFacebook />
+          Sign In with Facebook
+        </div>
+        <div className="authApp">
+          <FaApple /> Sign In with Apple Account
+        </div>
       </div>
     </div>
   );
