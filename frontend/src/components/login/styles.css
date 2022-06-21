@@ -1,6 +1,5 @@
 .registerForm {
   width: 400px;
-  margin: auto;
 }
 
 .form-group {
@@ -17,7 +16,7 @@
 
 .loginWrapper {
   display: grid;
-  grid-template-columns: 30% 40% 30%;
+  grid-template-columns: 35% 25% 30%;
   grid-template-rows: 30% 40% 30%;
 }
 
@@ -29,15 +28,24 @@
 }
 
 .loginForm {
-  grid-column-start: 1;
+  grid-column-start: 2;
   grid-column-end: span col4-start;
   grid-row-start: 2;
-  grid-row-end: span 2;
+  grid-row-end: 3;
 }
 
 .thirdPartyLogin {
   grid-column-start: 3;
-  grid-column-end: span col4-start;
+  grid-column-end: 4;
   grid-row-start: 2;
   grid-row-end: span 2;
+}
+
+.authApp {
+  border: 1px solid black;
+  margin-top: 10px;
+  height: 50px;
+  width: 270px;
+  padding: 10px;
+  border-radius: 5px;
 }
