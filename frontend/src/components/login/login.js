@@ -45,52 +45,66 @@ export const Login = () => {
   });
 
   return (
-    <div className="loginForm">
-      <div className="row d-flex justify-content-center">
-        <div className="col-md-4">
-          <Form onSubmit={formik.handleSubmit}>
-            <div>
-              <div className="form-group">
-                <label htmlFor="username">Username</label>
-                <Input
-                  type="text"
-                  className="form-control"
-                  name="username"
-                  value={formik.values.username}
-                  onChange={formik.handleChange}
-                />
+    <div className="loginWrapper">
+      <div className="loginText">
+        <h1>Login to Your Account</h1>
+        <p>
+          Search our vast collection of rental properties near you for the best
+          deals!
+        </p>
+      </div>
+      <div className="loginForm">
+        <div>
+          <div className="col-md-4">
+            <Form onSubmit={formik.handleSubmit}>
+              <div>
+                <div className="form-group">
+                  <label htmlFor="username">Username</label>
+                  <Input
+                    type="text"
+                    className="form-control"
+                    name="username"
+                    value={formik.values.username}
+                    onChange={formik.handleChange}
+                  />
+                </div>
+                {formik.errors.username ? (
+                  <div className="text-danger">{formik.errors.username}</div>
+                ) : null}
+                <div className="form-group">
+                  <label htmlFor="password">Password</label>
+                  <Input
+                    type="password"
+                    className="form-control"
+                    name="password"
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                  />
+                </div>
+                {formik.errors.password ? (
+                  <div className="text-danger">{formik.errors.password}</div>
+                ) : null}
+                <div className="form-group">
+                  <button className="btn btn-primary btn-block" type="submit">
+                    Log In
+                  </button>
+                  <p className="text-danger">{error}</p>
+                </div>
               </div>
-              {formik.errors.username ? (
-                <div className="text-danger">{formik.errors.username}</div>
-              ) : null}
-              <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <Input
-                  type="password"
-                  className="form-control"
-                  name="password"
-                  value={formik.values.password}
-                  onChange={formik.handleChange}
-                />
-              </div>
-              {formik.errors.password ? (
-                <div className="text-danger">{formik.errors.password}</div>
-              ) : null}
-              <div className="form-group">
-                <button className="btn btn-primary btn-block" type="submit">
-                  Log In
-                </button>
-                <p className="text-danger">{error}</p>
-              </div>
-            </div>
-          </Form>
+            </Form>
 
-          <div className="register">
-            <br />
-            <p>Don't have an account?</p>
-            <NavLink to="/register">Register</NavLink>
+            <div className="register">
+              <br />
+              <p>Don't have an account?</p>
+              <NavLink to="/register">Register</NavLink>
+            </div>
           </div>
         </div>
+      </div>
+      <div className="thirdPartyLogin">
+        <div>Sign In with Google</div>
+        <div>Sign In with Google</div>
+        <div>Sign In with Google</div>
       </div>
     </div>
   );
