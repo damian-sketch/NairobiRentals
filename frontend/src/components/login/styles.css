@@ -40,12 +40,3 @@
   grid-row-start: 2;
   grid-row-end: span 2;
 }
-
-.authApp {
-  border: 1px solid black;
-  margin-top: 10px;
-  height: 50px;
-  width: 270px;
-  padding: 10px;
-  border-radius: 5px;
-}

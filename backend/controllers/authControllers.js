@@ -2,6 +2,7 @@ import User from "../models/userModel.js";
 import asyncHandler from "express-async-handler";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import envVariables from "../middlewares/envVariables.js";
 
 //function to register a user
 export const registerUser = asyncHandler(async (req, res) => {
@@ -52,4 +53,10 @@ export const LoginUser = asyncHandler(async (req, res) => {
   });
   res.cookie("token", token, { maxAge: 7200000, httpOnly: true, path: "/" });
   res.status(200).json({ msg: "token created" });
+});
+
+export const fetchVariable = asyncHandler(async (req, res) => {
+  const requested = req.query.name;
+  let variableValue = envVariables(requested);
+  res.send(variableValue);
 });
