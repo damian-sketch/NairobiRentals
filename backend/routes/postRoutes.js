@@ -1,11 +1,14 @@
-import { getPosts } from "../controllers/postControllers.js";
-import express from 'express'
-const router = express.Router()
+import express from "express";
+import { addHouse, getHouse } from "../controllers/houseControllers.js";
+const router = express.Router();
 
-// route to get all posts
-router.route('/').get(getPosts)
+// route to submit a new post
+router.post("/submit-post", addHouse);
 
-// // route to get post by id
-// router.route('/:id').get(getPostById)
+// router to get posts
+router.get("/", getHouse);
 
-export default router
+// // router to get post details
+// router.get("/post-details", houseDetails);
+
+export default router;

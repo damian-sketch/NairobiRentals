@@ -1,23 +1,7 @@
-/* #regModal {
-    background-color: rgb(90, 63, 63);
-    position: absolute;
-    top: 30%;
-    left: 35%;
-    text-align: center;
-    margin: -25px 0 0 -25px;
-    height: 350px;
-    width: 450px;
-    border-radius: 5px;
+.form-group {
+  margin: 10px;
 }
 
-.regInputs {
-    display: flex;
-    flex-direction: column;
-    width: 300px;
-    margin-left: 40px;
+.form-control {
+  width: auto !important;
 }
-
-
-input + input {
-    margin-top: 20px;
-} */
