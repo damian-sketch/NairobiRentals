@@ -25,7 +25,7 @@ const userSchema = mongoose.Schema(
       minlength: [8, "Password should be at least 8 characters"],
       maxlength: 260,
     },
-    isAdmin: {
+    isSeller: {
       type: Boolean,
       required: true,
       default: false,
