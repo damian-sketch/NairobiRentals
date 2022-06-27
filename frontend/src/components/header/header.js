@@ -64,6 +64,17 @@ export const Header = () => {
                 Contact Us
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink
+                exact="true"
+                to="/sellers/login"
+                activeClassName="active"
+                className="nav-links"
+                onClick={click ? handleClick : null}
+              >
+                Sellers
+              </NavLink>
+            </li>
             {logged ? (
               <li className="nav-item">
                 <NavLink
