@@ -8,6 +8,8 @@ import { Houses } from "./components/houses/houses";
 import { Header } from "./components/header/header";
 import { HouseDetails } from "./components/details/details";
 import { PostHouse } from "./components/sellersPortal/postHouses/postHouse";
+import { SellersLogin } from "./components/sellersPortal/sellersLogin/login";
+import { SellersRegistration } from "./components/sellersPortal/sellersRegister";
 
 const App = () => {
   return (
@@ -15,8 +17,10 @@ const App = () => {
       <Header />
       <div className="wrapperDiv">
         <Routes>
+          <Route path="/sellers/register" element={<SellersRegistration />} />
           <Route path="/register" element={<Registration />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/sellers/login" element={<SellersLogin />} />
           <Route path="/" element={<Posts />} />
           <Route path="/houses" element={<Houses />} />
           <Route path="/details/:id" element={<HouseDetails />} />

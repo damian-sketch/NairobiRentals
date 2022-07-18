@@ -4,13 +4,13 @@ import { NavLink } from "react-router-dom";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import { useFormik } from "formik";
-import AuthService from "../../services/auth.service";
+import AuthService from "../../../services/auth.service";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { resonse } from "../../services/auth.service";
+import { resonse } from "../../../services/auth.service";
 import "react-toastify/dist/ReactToastify.css";
 
-export const Registration = () => {
+export const SellersRegistration = () => {
   const [register, setRegister] = useState(false);
   const [error, setError] = useState("");
   let message = "";
@@ -42,17 +42,20 @@ export const Registration = () => {
       email: "",
       username: "",
       password: "",
+      seller: true,
     },
     validate,
     onSubmit: async (values) => {
       try {
         const id = toast.loading("Registering...");
         console.log(resonse);
+
         await AuthService.register(
           values.fullnames,
           values.username,
           values.email,
-          values.password
+          values.password,
+          values.seller
         ).then((response) => {
           console.log(response);
           if (response.data.message == "User registered successfully") {
@@ -138,6 +141,7 @@ export const Registration = () => {
               {formik.errors.password ? (
                 <div className="text-danger">{formik.errors.password}</div>
               ) : null}
+
               <div className="form-group">
                 <button className="btn btn-primary btn-block" type="submit">
                   Sign Up
@@ -150,7 +154,7 @@ export const Registration = () => {
           <div>
             <br />
             <p>Already signed up?</p>
-            <NavLink to="/login">Login</NavLink>
+            <NavLink to="/sellers/login">Login</NavLink>
           </div>
         </div>
       </div>

@@ -23,6 +23,7 @@
     "react-icons": "^4.4.0",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
+    "react-toastify": "^9.0.5",
     "react-validation": "^3.0.7",
     "stream": "^0.0.2",
     "stream-browserify": "^3.0.0",

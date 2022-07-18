@@ -1,15 +1,23 @@
 import axios from "axios";
 
 const API_URL = "http://localhost:5000/";
-
+export let success;
+export let resonse;
 class AuthService {
-  register(fullnames, username, email, password) {
-    return axios.post(API_URL + "register", {
-      fullnames,
-      username,
-      email,
-      password,
-    });
+  async register(fullnames, username, email, password, seller) {
+    return await axios
+      .post(API_URL + "register", {
+        fullnames,
+        username,
+        email,
+        password,
+        seller,
+      })
+      .then((response) => {
+        console.log(response);
+        resonse = response;
+        success = response.data.message;
+      });
   }
 
   getCurrentUser() {
