@@ -57,7 +57,6 @@ export const SellersRegistration = () => {
           values.password,
           values.seller
         ).then((response) => {
-          console.log(response);
           if (response.data.message == "User registered successfully") {
             setRegister(true);
             message = response.data.message;

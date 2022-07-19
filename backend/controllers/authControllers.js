@@ -7,7 +7,6 @@ import envVariables from "../middlewares/envVariables.js";
 //function to register a user
 export const registerUser = asyncHandler(async (req, res) => {
   const user = req.body;
-  console.log(user);
 
   //check if userame or email have been taken
   const takenUsername = await User.findOne({ userName: user.username });

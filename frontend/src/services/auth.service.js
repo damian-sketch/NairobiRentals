@@ -14,7 +14,6 @@ class AuthService {
         seller,
       })
       .then((response) => {
-        console.log(response);
         resonse = response;
         success = response.data.message;
       });
