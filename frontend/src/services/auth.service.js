@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API_URL = "https://househunters-express-server.herokuapp.com/";
 export let success;
-export let resonse;
+export let resonse = "/";
 class AuthService {
   async register(fullnames, username, email, password, seller) {
     return await axios
@@ -14,8 +14,7 @@ class AuthService {
         seller,
       })
       .then((response) => {
-        resonse = response;
-        success = response.data.message;
+        return response.data;
       });
   }
 

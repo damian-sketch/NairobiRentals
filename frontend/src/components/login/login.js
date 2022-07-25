@@ -6,7 +6,6 @@ import Input from "react-validation/build/input";
 import AuthService from "../../services/auth.service";
 import { useFormik } from "formik";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
-import { FaApple, FaFacebook } from "react-icons/fa";
 import fetchEnvVariable from "../../helpers/fetchEnvVariable";
 const validate = (values) => {
   let errors = {};
