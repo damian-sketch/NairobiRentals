@@ -1,6 +1,6 @@
 import User from "../models/userModel.js";
 import asyncHandler from "express-async-handler";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import envVariables from "../middlewares/envVariables.js";
 
@@ -12,10 +12,12 @@ export const registerUser = asyncHandler(async (req, res) => {
   const takenUsername = await User.findOne({ userName: user.username });
   const takenEmail = await User.findOne({ email: user.email });
 
-  if (takenUsername || takenEmail) {
+  if (takenUsername) {
+    res.status(401).json({ message: "Username has already been taken" });
+  } else if (takenEmail) {
     res
       .status(401)
-      .json({ message: "Username or email has already been taken" });
+      .json({ message: "An account for this email already exists!" });
   } else {
     // this needs to be done before user is saved
     user.password = await bcrypt.hash(req.body.password, 10);

@@ -1,20 +1,15 @@
 import "./styles.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import { useFormik } from "formik";
 import AuthService from "../../../services/auth.service";
 import { ToastContainer, toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
-import { resonse } from "../../../services/auth.service";
 import "react-toastify/dist/ReactToastify.css";
 
 export const SellersRegistration = () => {
-  const [register, setRegister] = useState(false);
   const [error, setError] = useState("");
-  let message = "";
-  const navigate = useNavigate();
 
   const validate = (values) => {
     let errors = {};
@@ -47,9 +42,6 @@ export const SellersRegistration = () => {
     validate,
     onSubmit: async (values) => {
       try {
-        const id = toast.loading("Registering...");
-        console.log(resonse);
-
         await AuthService.register(
           values.fullnames,
           values.username,
@@ -57,26 +49,10 @@ export const SellersRegistration = () => {
           values.password,
           values.seller
         ).then((response) => {
-          if (response.data.message == "User registered successfully") {
-            setRegister(true);
-            message = response.data.message;
-          } else {
-            setRegister(false);
-            message = response.data.message
-              ? response.data.message
-              : response.data;
-          }
+          toast.success(response.message);
         });
-
-        if (register) {
-          toast.update(id, { render: message, type: "success" });
-        } else {
-          toast.update(id, { render: message, type: "error" });
-        }
       } catch (e) {
-        if (e.message == "Request failed with status code 401") {
-          setError("Wrong email or password!");
-        }
+        toast.error(e.response.data.message);
       }
     },
   });

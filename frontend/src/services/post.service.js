@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/";
+const API_URL = "https://househunters-express-server.herokuapp.com/";
 
 class PostService {
   async submitPost(newHouse) {

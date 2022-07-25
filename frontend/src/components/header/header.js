@@ -1,6 +1,6 @@
 import "./styles.css";
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import authService from "../../services/auth.service";
 
 export const Header = () => {
@@ -8,10 +8,12 @@ export const Header = () => {
   const [logged, setLogged] = useState(false);
   const handleClick = () => setClick(!click);
   const Close = () => setClick(false);
+  const navigate = useNavigate();
 
   const logoutUser = async () => {
     await authService.logout();
     window.location.reload(true);
+    navigate("/");
   };
 
   useEffect(() => {
