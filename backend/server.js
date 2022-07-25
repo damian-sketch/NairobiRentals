@@ -17,7 +17,7 @@ const app = express();
 app.use(
   cors({
     credentials: true,
-    origin: "https://househunters-express-server.herokuapp.com/",
+    origin: "https://lucky-empanada-bcd1f2.netlify.app",
   })
 );
 app.use(bodyParser.json());
