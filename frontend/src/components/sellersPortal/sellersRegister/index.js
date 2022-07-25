@@ -1,15 +1,17 @@
 import "./styles.css";
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import { useFormik } from "formik";
 import AuthService from "../../../services/auth.service";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import timeout from "../../../helpers/delay";
 
 export const SellersRegistration = () => {
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const validate = (values) => {
     let errors = {};
@@ -50,6 +52,10 @@ export const SellersRegistration = () => {
           values.seller
         ).then((response) => {
           toast.success(response.message);
+        });
+        await timeout(2000);
+        await AuthService.login(values.username, values.password).then(() => {
+          navigate("/portal/post-house");
         });
       } catch (e) {
         toast.error(e.response.data.message);
