@@ -50,7 +50,7 @@ export const LoginUser = asyncHandler(async (req, res) => {
   // check if provided password matches user pass
   const isMatch = await bcrypt.compare(password, user.password);
 
-  if (!isMatch) return res.status(401).json({ msg: "Invalid credentials!" });
+  if (!isMatch) return res.status(401).json({ msg: "Invalid password!" });
 
   // create JWT and store it as a cookie in browser
   const token = jwt.sign({ id: user._id, type: "user" }, process.env.JWT, {
