@@ -1,5 +1,5 @@
 import "./styles.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
@@ -7,13 +7,11 @@ import { useFormik } from "formik";
 import AuthService from "../../services/auth.service";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { resonse } from "../../services/auth.service";
 import "react-toastify/dist/ReactToastify.css";
+import timeout from "../../helpers/delay";
 
 export const Registration = () => {
-  const [register, setRegister] = useState(false);
   const [error, setError] = useState("");
-  let message = "";
   const navigate = useNavigate();
 
   const validate = (values) => {
@@ -46,34 +44,20 @@ export const Registration = () => {
     validate,
     onSubmit: async (values) => {
       try {
-        const id = toast.loading("Registering...");
-        console.log(resonse);
         await AuthService.register(
           values.fullnames,
           values.username,
           values.email,
           values.password
         ).then((response) => {
-          if (response.data.message == "User registered successfully") {
-            setRegister(true);
-            message = response.data.message;
-          } else {
-            setRegister(false);
-            message = response.data.message
-              ? response.data.message
-              : response.data;
-          }
+          toast.success(response.message);
         });
-
-        if (register) {
-          toast.update(id, { render: message, type: "success" });
-        } else {
-          toast.update(id, { render: message, type: "error" });
-        }
+        await timeout(2000);
+        await AuthService.login(values.username, values.password).then(() => {
+          navigate("/");
+        });
       } catch (e) {
-        if (e.message == "Request failed with status code 401") {
-          setError("Wrong email or password!");
-        }
+        toast.error(e.response.data.message);
       }
     },
   });

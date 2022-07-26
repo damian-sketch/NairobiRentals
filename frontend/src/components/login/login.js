@@ -7,6 +7,9 @@ import AuthService from "../../services/auth.service";
 import { useFormik } from "formik";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import fetchEnvVariable from "../../helpers/fetchEnvVariable";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const validate = (values) => {
   let errors = {};
   if (values.username === "") {
@@ -38,9 +41,7 @@ export const Login = () => {
         navigate("/");
         window.location.reload(true);
       } catch (e) {
-        if (e.message == "Request failed with status code 401") {
-          setError("Wrong email or password!");
-        }
+        toast.error(e.response.data.msg);
       }
     },
   });
@@ -56,6 +57,7 @@ export const Login = () => {
   return (
     <GoogleOAuthProvider clientId={clientId}>
       <div className="loginWrapper">
+        <ToastContainer autoClose={3000} closeOnClick closeButton />
         <div className="loginText">
           <h1>Login to Your Account </h1>
           <p>
