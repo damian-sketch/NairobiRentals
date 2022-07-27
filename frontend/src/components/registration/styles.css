@@ -5,3 +5,8 @@
 .form-control {
   width: auto !important;
 }
+
+.registerForm {
+  width: 400px;
+  margin-left: 80px;
+}

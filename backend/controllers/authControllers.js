@@ -3,6 +3,7 @@ import asyncHandler from "express-async-handler";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import envVariables from "../middlewares/envVariables.js";
+import { OAuth2Client } from "google-auth-library";
 
 //function to register a user
 export const registerUser = asyncHandler(async (req, res) => {
@@ -23,7 +24,6 @@ export const registerUser = asyncHandler(async (req, res) => {
     user.password = await bcrypt.hash(req.body.password, 10);
 
     const dbUser = new User({
-      fullNames: user.fullnames,
       userName: user.username.toLowerCase(),
       email: user.email.toLowerCase(),
       password: user.password,
@@ -64,4 +64,26 @@ export const fetchVariable = asyncHandler(async (req, res) => {
   const requested = req.query.name;
   let variableValue = envVariables(requested);
   res.send(variableValue);
+});
+
+export const loginWithGoogle = asyncHandler(async (req, res) => {
+  const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
+  const { credential } = req.body.token;
+  const ticket = await client.verifyIdToken({
+    idToken: credential,
+    audience: process.env.GOOGLE_CLIENT_ID,
+  });
+
+  const { email, name } = ticket.getPayload();
+  // check if user exists
+  const user = await User.findOne({ email: email });
+  if (!user) res.status(400).json({ msg: "This user is not registered!" });
+
+  // create JWT and store it as a cookie in browser
+  const token = jwt.sign({ id: user._id, type: "user" }, process.env.JWT, {
+    expiresIn: "2h",
+  });
+  res.cookie("token", token, { maxAge: 7200000, httpOnly: true, path: "/" });
+  res.status(200).json({ msg: "Success", name: name });
 });

@@ -9,6 +9,7 @@ import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import fetchEnvVariable from "../../helpers/fetchEnvVariable";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import timeout from "../../helpers/delay";
 
 const validate = (values) => {
   let errors = {};
@@ -45,6 +46,7 @@ export const Login = () => {
       }
     },
   });
+
   useEffect(() => {
     // Call function to fetch he required environment variable
     let func = async () => {
@@ -54,10 +56,24 @@ export const Login = () => {
     };
     func().catch(console.error);
   }, []);
+
+  const handleLogin = async (googleData) => {
+    try {
+      await AuthService.loginWithGoogle(googleData).then((response) => {
+        toast.success(response.msg);
+      });
+      await timeout(2000);
+      navigate("/");
+    } catch (e) {
+      toast.error(e.response.data.msg);
+      await timeout(2000);
+      navigate("/register");
+    }
+  };
   return (
     <GoogleOAuthProvider clientId={clientId}>
       <div className="loginWrapper">
-        <ToastContainer autoClose={3000} closeOnClick closeButton />
+        <ToastContainer autoClose={2000} closeOnClick closeButton />
         <div className="loginText">
           <h1>Login to Your Account </h1>
           <p>
@@ -115,12 +131,10 @@ export const Login = () => {
         </div>
         <div className="thirdPartyLogin">
           <GoogleLogin
-            onSuccess={(credentialResponse) => {
-              console.log(credentialResponse);
-            }}
-            onError={() => {
-              console.log("Login Failed");
-            }}
+            clientId={clientId}
+            onSuccess={handleLogin}
+            onFailure={handleLogin}
+            cookiePolicy={"single_host_origin"}
           />
         </div>
       </div>
