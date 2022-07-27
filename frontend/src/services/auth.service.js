@@ -4,10 +4,9 @@ const API_URL = "https://househunters-express-server.herokuapp.com/";
 export let success;
 export let resonse = "/";
 class AuthService {
-  async register(fullnames, username, email, password, seller) {
+  async register(username, email, password, seller) {
     return await axios
       .post(API_URL + "register", {
-        fullnames,
         username,
         email,
         password,
@@ -40,6 +39,20 @@ class AuthService {
   }
   async logout() {
     localStorage.removeItem("user");
+  }
+
+  async loginWithGoogle(token) {
+    return await axios
+      .post(API_URL + "auth/google", {
+        token: token,
+      })
+      .then((response) => {
+        if (response.status == 200) {
+          localStorage.setItem("user", JSON.stringify(response.data.name));
+          localStorage.getItem("user");
+        }
+        return response.data;
+      });
   }
 }
 
