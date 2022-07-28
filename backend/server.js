@@ -17,7 +17,7 @@ const app = express();
 app.use(
   cors({
     credentials: true,
-    origin: "https://lucky-empanada-bcd1f2.netlify.app",
+    origin: "http://localhost:3000",
   })
 );
 app.use(bodyParser.json());

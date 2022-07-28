@@ -4,6 +4,7 @@ import {
   registerUser,
   fetchVariable,
   loginWithGoogle,
+  sellersLoginWithGoogle,
 } from "../controllers/authControllers.js";
 const router = express.Router();
 
@@ -15,4 +16,6 @@ router.post("/login", LoginUser);
 router.get("/variables", fetchVariable);
 
 router.post("/auth/google", loginWithGoogle);
+
+router.post("/seller/auth/google", sellersLoginWithGoogle);
 export default router;

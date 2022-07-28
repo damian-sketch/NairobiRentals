@@ -25,9 +25,6 @@ export const SellersRegistration = () => {
     } else if (values.password.length < 3) {
       errors.password = "Password must be 3 characters at minimum";
     }
-    if (values.fullnames === "") {
-      errors.fullnames = "Full Names are required";
-    }
     if (values.email === "") {
       errors.email = "Email is required";
     }
@@ -35,7 +32,6 @@ export const SellersRegistration = () => {
   };
   const formik = useFormik({
     initialValues: {
-      fullnames: "",
       email: "",
       username: "",
       password: "",
@@ -45,7 +41,6 @@ export const SellersRegistration = () => {
     onSubmit: async (values) => {
       try {
         await AuthService.register(
-          values.fullnames,
           values.username,
           values.email,
           values.password,
@@ -70,19 +65,6 @@ export const SellersRegistration = () => {
         <div className="col-md-4">
           <Form onSubmit={formik.handleSubmit}>
             <div>
-              <div className="form-group">
-                <label htmlFor="fullnames">Full Names</label>
-                <Input
-                  type="text"
-                  className="form-control"
-                  name="fullnames"
-                  value={formik.values.fullnames}
-                  onChange={formik.handleChange}
-                />
-              </div>
-              {formik.errors.fullnames ? (
-                <div className="text-danger">{formik.errors.fullnames}</div>
-              ) : null}
               <div className="form-group">
                 <label htmlFor="username">Username</label>
                 <Input

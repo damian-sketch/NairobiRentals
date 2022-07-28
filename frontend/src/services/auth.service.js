@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://househunters-express-server.herokuapp.com/";
+const API_URL = "http://localhost:5000/";
 export let success;
 export let resonse = "/";
 class AuthService {
@@ -44,6 +44,20 @@ class AuthService {
   async loginWithGoogle(token) {
     return await axios
       .post(API_URL + "auth/google", {
+        token: token,
+      })
+      .then((response) => {
+        if (response.status == 200) {
+          localStorage.setItem("user", JSON.stringify(response.data.name));
+          localStorage.getItem("user");
+        }
+        return response.data;
+      });
+  }
+
+  async sellersLoginWithGoogle(token) {
+    return await axios
+      .post(API_URL + "seller/auth/google", {
         token: token,
       })
       .then((response) => {
