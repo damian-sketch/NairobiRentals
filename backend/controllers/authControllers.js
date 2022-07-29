@@ -81,7 +81,7 @@ export const loginWithGoogle = asyncHandler(async (req, res) => {
   if (!user) res.status(400).json({ msg: "This user is not registered!" });
 
   //check if user is a buyer
-  if (!user.isSeller)
+  if (user.isSeller)
     res.status(400).json({ msg: "Please register as a buyer!" });
   // create JWT and store it as a cookie in browser
   const token = jwt.sign({ id: user._id, type: "user" }, process.env.JWT, {
