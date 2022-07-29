@@ -54,6 +54,20 @@ class AuthService {
         return response.data;
       });
   }
+
+  async sellersLoginWithGoogle(token) {
+    return await axios
+      .post(API_URL + "seller/auth/google", {
+        token: token,
+      })
+      .then((response) => {
+        if (response.status == 200) {
+          localStorage.setItem("user", JSON.stringify(response.data.name));
+          localStorage.getItem("user");
+        }
+        return response.data;
+      });
+  }
 }
 
 export default new AuthService();

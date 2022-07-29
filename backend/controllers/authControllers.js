@@ -80,6 +80,35 @@ export const loginWithGoogle = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email: email });
   if (!user) res.status(400).json({ msg: "This user is not registered!" });
 
+  //check if user is a buyer
+  if (!user.isSeller)
+    res.status(400).json({ msg: "Please register as a buyer!" });
+  // create JWT and store it as a cookie in browser
+  const token = jwt.sign({ id: user._id, type: "user" }, process.env.JWT, {
+    expiresIn: "2h",
+  });
+  res.cookie("token", token, { maxAge: 7200000, httpOnly: true, path: "/" });
+  res.status(200).json({ msg: "Success", name: name });
+});
+
+export const sellersLoginWithGoogle = asyncHandler(async (req, res) => {
+  const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
+  // Verify the ID token against the google token
+  const { credential } = req.body.token;
+  const ticket = await client.verifyIdToken({
+    idToken: credential,
+    audience: process.env.GOOGLE_CLIENT_ID,
+  });
+
+  const { email, name } = ticket.getPayload();
+  // check if user exists
+  const user = await User.findOne({ email: email });
+  if (!user) res.status(400).json({ msg: "This user is not registered!" });
+
+  //check if user is a seller
+  if (!user.isSeller)
+    res.status(400).json({ msg: "Please register as a seller!" });
   // create JWT and store it as a cookie in browser
   const token = jwt.sign({ id: user._id, type: "user" }, process.env.JWT, {
     expiresIn: "2h",

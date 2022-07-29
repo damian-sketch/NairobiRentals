@@ -9,6 +9,7 @@ import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import fetchEnvVariable from "../../../helpers/fetchEnvVariable";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import timeout from "../../../helpers/delay";
 
 const validate = (values) => {
   let errors = {};
@@ -38,7 +39,7 @@ export const SellersLogin = () => {
     onSubmit: async (values) => {
       try {
         await AuthService.login(values.username, values.password);
-        navigate("/");
+        navigate("/portal/post-house");
         window.location.reload(true);
       } catch (e) {
         toast.error(e.response.data.msg);
@@ -54,6 +55,22 @@ export const SellersLogin = () => {
     };
     func().catch(console.error);
   }, []);
+
+  // This function is used to handle the google login
+  const handleLogin = async (googleData) => {
+    try {
+      await AuthService.sellersLoginWithGoogle(googleData).then((response) => {
+        toast.success(response.msg);
+      });
+      await timeout(2000);
+      navigate("/portal/post-house");
+    } catch (e) {
+      toast.error(e.response.data.msg);
+      await timeout(2000);
+      navigate("/sellers/register");
+    }
+  };
+
   return (
     <GoogleOAuthProvider clientId={clientId}>
       <ToastContainer autoClose={3000} closeOnClick closeButton />
@@ -117,12 +134,10 @@ export const SellersLogin = () => {
         </div>
         <div className="thirdPartyLogin">
           <GoogleLogin
-            onSuccess={(credentialResponse) => {
-              console.log(credentialResponse);
-            }}
-            onError={() => {
-              console.log("Login Failed");
-            }}
+            clientId={clientId}
+            onSuccess={handleLogin}
+            onFailure={handleLogin}
+            cookiePolicy={"single_host_origin"}
           />
         </div>
       </div>

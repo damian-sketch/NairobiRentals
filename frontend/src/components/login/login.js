@@ -57,6 +57,7 @@ export const Login = () => {
     func().catch(console.error);
   }, []);
 
+  // This function is used to handle the google login
   const handleLogin = async (googleData) => {
     try {
       await AuthService.loginWithGoogle(googleData).then((response) => {
@@ -70,6 +71,7 @@ export const Login = () => {
       navigate("/register");
     }
   };
+
   return (
     <GoogleOAuthProvider clientId={clientId}>
       <div className="loginWrapper">
