@@ -93,8 +93,8 @@ export const Login = () => {
             <div className="col-md-4">
               <Form onSubmit={formik.handleSubmit}>
                 <div>
+                  <label htmlFor="username">Username</label>
                   <div className="form-group">
-                    <label htmlFor="username">Username</label>
                     <Input
                       type="text"
                       className="form-control"
@@ -106,8 +106,8 @@ export const Login = () => {
                   {formik.errors.username ? (
                     <div className="text-danger">{formik.errors.username}</div>
                   ) : null}
+                  <label htmlFor="password">Password</label>
                   <div className="form-group">
-                    <label htmlFor="password">Password</label>
                     <Input
                       type={passwordType}
                       className="form-control"
@@ -115,7 +115,11 @@ export const Login = () => {
                       value={formik.values.password}
                       onChange={formik.handleChange}
                     />
-                    <button onClick={togglePassword} type="button">
+                    <button
+                      onClick={togglePassword}
+                      type="button"
+                      className="passReveal"
+                    >
                       {passwordType === "password" ? <FaEye /> : <FaEyeSlash />}
                     </button>
                   </div>

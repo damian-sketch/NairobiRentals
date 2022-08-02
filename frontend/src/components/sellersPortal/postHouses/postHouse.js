@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import postService from "../../../services/post.service";
 import storage from "../../../firebase.js";
 import "./styles.css";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 export const PostHouse = () => {
   const [newHouse, setNewHouse] = useState({
@@ -14,7 +17,13 @@ export const PostHouse = () => {
     photos: "",
     owner: localStorage.getItem("user"),
   });
-
+  const navigate = useNavigate();
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (!user) {
+      navigate("/sellers/login");
+    }
+  }, []);
   let feedback = "";
 
   const handleChange = (e) => {
@@ -24,9 +33,15 @@ export const PostHouse = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!newHouse.photos) {
-      alert("Please choose a photo first");
+      toast.error("Please choose a photo first");
     }
-    postService.submitPost(newHouse);
+    try {
+      await postService.submitPost(newHouse).then((response) => {
+        toast.success(response.message);
+      });
+    } catch (e) {
+      toast.error(e.response.data);
+    }
   };
 
   const handleUpload = async (e) => {
@@ -48,73 +63,92 @@ export const PostHouse = () => {
         });
       }
     );
-    alert("Photo uploaded successfully");
+    toast.success("Photo uploaded successfully");
   };
 
   return (
-    <form encType="multipart/form-data" onSubmit={handleSubmit}>
-      <div className="photoUpload">
-        <h1>UPLOAD PROPERTY PICTURES</h1>
-        <p className={feedback.includes("Success") ? "success" : "danger"}>
-          {feedback}
-        </p>
-        <input
-          type="file"
-          name="photos"
-          multiple
-          accept=".png, .jpg, .jpeg"
-          onChange={handleUpload}
-        />
-      </div>
-      <div>
-        <h3>Details</h3>
-        Location:
-        <input
-          type="text"
-          value={newHouse.location}
-          onChange={handleChange}
-          name="location"
-        />
-        Rent per month:
-        <input
-          type="text"
-          value={newHouse.rent}
-          onChange={handleChange}
-          name="rent"
-        />
-        Bathrooms:
-        <input
-          type="text"
-          value={newHouse.bathrooms}
-          onChange={handleChange}
-          name="bathrooms"
-        />
-        Bedrooms:
-        <input
-          type="text"
-          value={newHouse.bedrooms}
-          onChange={handleChange}
-          name="bedrooms"
-        />
-        Balcony:
-        <input
-          type="radio"
-          id="yes"
-          name="balcony"
-          value="true"
-          onChange={handleChange}
-        />
-        <label> yes</label>
-        <input
-          type="radio"
-          id="no"
-          name="balcony"
-          value="false"
-          onChange={handleChange}
-        />
-        <label> no</label>
-        <input type="submit" />
-      </div>
-    </form>
+    <div className="postWrapper">
+      <ToastContainer autoClose={3000} closeOnClick closeButton />
+      <form encType="multipart/form-data" onSubmit={handleSubmit}>
+        <div className="photoUpload">
+          <h1>UPLOAD PROPERTY PICTURES</h1>
+          <p className={feedback.includes("Success") ? "success" : "danger"}>
+            {feedback}
+          </p>
+          <input
+            type="file"
+            name="photos"
+            multiple
+            accept=".png, .jpg, .jpeg"
+            onChange={handleUpload}
+          />
+        </div>
+        <div className="postHouseDetails">
+          <h3>Details</h3>
+          <div className="indivDetails">
+            Location:
+            <input
+              className="houseInput"
+              type="text"
+              value={newHouse.location}
+              onChange={handleChange}
+              name="location"
+            />
+          </div>
+          <div className="indivDetails">
+            Rent per month:
+            <input
+              className="houseInput"
+              type="text"
+              value={newHouse.rent}
+              onChange={handleChange}
+              name="rent"
+            />
+          </div>
+          <div className="indivDetails">
+            Bathrooms:
+            <input
+              className="houseInput"
+              type="text"
+              value={newHouse.bathrooms}
+              onChange={handleChange}
+              name="bathrooms"
+            />
+          </div>
+          <div className="indivDetails">
+            Bedrooms:
+            <input
+              className="houseInput"
+              type="text"
+              value={newHouse.bedrooms}
+              onChange={handleChange}
+              name="bedrooms"
+            />
+          </div>
+          <div className="indivDetails">
+            Balcony:
+            <input
+              className="houseInput"
+              type="radio"
+              id="yes"
+              name="balcony"
+              value="true"
+              onChange={handleChange}
+            />
+            <label> yes</label>
+            <input
+              className="houseInput"
+              type="radio"
+              id="no"
+              name="balcony"
+              value="false"
+              onChange={handleChange}
+            />
+            <label> no</label>
+          </div>
+          <input type="submit" />
+        </div>
+      </form>
+    </div>
   );
 };

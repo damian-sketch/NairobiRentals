@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import house from "../../assets/house.jpg";
 import postService from "../../services/post.service";
 import { useState } from "react";
+import "./styles.css";
+
 export const Houses = () => {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
@@ -20,7 +21,7 @@ export const Houses = () => {
   })();
 
   return [...data].map((e, i) => (
-    <div className="card" style={{ width: "18rem" }} key={i}>
+    <div className="houseCard" style={{ width: "18rem" }} key={i}>
       <img className="card-img-top" src={e.photos} alt="Card image cap"></img>
       <div className="card-body">
         <h5 className="card-title">{e.location}</h5>

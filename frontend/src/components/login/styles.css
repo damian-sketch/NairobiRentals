@@ -1,7 +1,12 @@
 .form-group {
   margin: 10px;
+  display: flex;
 }
 
+.passReveal {
+  background: none;
+  border: none;
+}
 .register {
   width: 250px;
 }

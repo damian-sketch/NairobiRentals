@@ -4,7 +4,11 @@ const API_URL = "https://househunters-express-server.herokuapp.com/";
 
 class PostService {
   async submitPost(newHouse) {
-    return await axios.post(API_URL + "posts/submit-post", { newHouse });
+    return await axios
+      .post(API_URL + "posts/submit-post", { newHouse })
+      .then((response) => {
+        return response.data;
+      });
   }
 
   async getAllPosts() {
