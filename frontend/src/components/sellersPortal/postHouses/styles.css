@@ -1,0 +1,18 @@
+.indivDetails {
+  margin: 10px;
+}
+
+.houseInput {
+  margin-left: 20px;
+}
+
+.postHouseDetails {
+  width: 200px;
+  margin: 20px;
+  background-color: aliceblue;
+}
+
+.photoUpload {
+  width: 200px;
+  margin: 20px;
+}

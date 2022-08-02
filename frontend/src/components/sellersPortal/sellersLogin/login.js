@@ -10,6 +10,7 @@ import fetchEnvVariable from "../../../helpers/fetchEnvVariable";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import timeout from "../../../helpers/delay";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const validate = (values) => {
   let errors = {};
@@ -28,6 +29,7 @@ const validate = (values) => {
 
 export const SellersLogin = () => {
   const [error, setError] = useState("");
+  const [passwordType, setPasswordType] = useState("password");
   const navigate = useNavigate();
   const [clientId, setClientId] = useState("");
   const formik = useFormik({
@@ -71,6 +73,9 @@ export const SellersLogin = () => {
     }
   };
 
+  const togglePassword = () => {
+    setPasswordType(passwordType === "password" ? "text" : "password");
+  };
   return (
     <GoogleOAuthProvider clientId={clientId}>
       <ToastContainer autoClose={3000} closeOnClick closeButton />
@@ -87,8 +92,8 @@ export const SellersLogin = () => {
             <div className="col-md-4">
               <Form onSubmit={formik.handleSubmit}>
                 <div>
+                  <label htmlFor="username">Username</label>
                   <div className="form-group">
-                    <label htmlFor="username">Username</label>
                     <Input
                       type="text"
                       className="form-control"
@@ -100,8 +105,9 @@ export const SellersLogin = () => {
                   {formik.errors.username ? (
                     <div className="text-danger">{formik.errors.username}</div>
                   ) : null}
+
+                  <label htmlFor="password">Password</label>
                   <div className="form-group">
-                    <label htmlFor="password">Password</label>
                     <Input
                       type="password"
                       className="form-control"
@@ -109,6 +115,13 @@ export const SellersLogin = () => {
                       value={formik.values.password}
                       onChange={formik.handleChange}
                     />
+                    <button
+                      onClick={togglePassword}
+                      type="button"
+                      className="passReveal"
+                    >
+                      {passwordType === "password" ? <FaEye /> : <FaEyeSlash />}
+                    </button>
                   </div>
                   {formik.errors.password ? (
                     <div className="text-danger">{formik.errors.password}</div>

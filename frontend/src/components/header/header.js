@@ -69,7 +69,7 @@ export const Header = () => {
             <li className="nav-item">
               <NavLink
                 exact="true"
-                to="/sellers/login"
+                to="/portal/post-house"
                 activeClassName="active"
                 className="nav-links"
                 onClick={click ? handleClick : null}

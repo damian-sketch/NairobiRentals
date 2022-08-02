@@ -16,7 +16,7 @@ export const addHouse = asyncHandler(async (req, res) => {
 
   dbHouse.save(function (err) {
     if (err) {
-      res.json(err.message);
+      res.status(400).json(err.message);
     } else {
       res.json({ message: "House uploaded successfully" });
     }
