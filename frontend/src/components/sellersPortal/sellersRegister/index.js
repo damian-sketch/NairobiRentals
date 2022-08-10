@@ -8,10 +8,12 @@ import AuthService from "../../../services/auth.service";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import timeout from "../../../helpers/delay";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export const SellersRegistration = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [passwordType, setPasswordType] = useState("password");
 
   const validate = (values) => {
     let errors = {};
@@ -57,7 +59,9 @@ export const SellersRegistration = () => {
       }
     },
   });
-
+  const togglePassword = () => {
+    setPasswordType(passwordType === "password" ? "text" : "password");
+  };
   return (
     <div className="registerForm">
       <ToastContainer autoClose={3000} closeOnClick closeButton />
@@ -94,12 +98,19 @@ export const SellersRegistration = () => {
               <div className="form-group">
                 <label htmlFor="password">Password</label>
                 <Input
-                  type="password"
+                  type={passwordType}
                   className="form-control"
                   name="password"
                   value={formik.values.password}
                   onChange={formik.handleChange}
                 />
+                <button
+                  onClick={togglePassword}
+                  type="button"
+                  className="passReveal"
+                >
+                  {passwordType === "password" ? <FaEye /> : <FaEyeSlash />}
+                </button>
               </div>
               {formik.errors.password ? (
                 <div className="text-danger">{formik.errors.password}</div>
