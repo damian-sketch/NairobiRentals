@@ -1,5 +1,5 @@
-# Socials
-This is a CRUD social media type application created using the MERN stack
+# Nairobi Rentals
+This is a web application deisgned to make it easier for Home seekers in Nairobi City find their next rental apartments by browsing through a comprehensive listing of apartments with well layed out details and photos. The application's frontend is hosted on Netlify and the backend is hosted on Heroku.
 
 # Technologies used
  - React
@@ -11,14 +11,13 @@ This is a CRUD social media type application created using the MERN stack
 To get started, you need to clone this repo into your local machine, and run the following commands
 
 ```
-cd socials
 npm install
 npm start
 ```
 
 # Contributions
 
-To get started with any available feature or issue, ensure to create a branch and submit a pull request once done
+To get started with any feature or issue, feel free to contact [me](mailto:cedricdamian19@gmail.com)
 
 # Resources
 
