@@ -140,6 +140,7 @@ export const Login = () => {
                 <p>Don't have an account?</p>
                 <NavLink to="/register">Register</NavLink>
               </div>
+              <NavLink to="/reset-password">Forgot Password?</NavLink>
             </div>
           </div>
         </div>
