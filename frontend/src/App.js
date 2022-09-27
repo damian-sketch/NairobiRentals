@@ -10,6 +10,8 @@ import { HouseDetails } from "./components/details/details";
 import { PostHouse } from "./components/sellersPortal/postHouses/postHouse";
 import { SellersLogin } from "./components/sellersPortal/sellersLogin/login";
 import { SellersRegistration } from "./components/sellersPortal/sellersRegister";
+import { ResetPassword } from "./components/resetPassword";
+import { ChangePassword } from "./components/changePassword";
 
 const App = () => {
   return (
@@ -25,6 +27,8 @@ const App = () => {
           <Route path="/houses" element={<Houses />} />
           <Route path="/details/:id" element={<HouseDetails />} />
           <Route path="/portal/post-house" element={<PostHouse />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/reset/:token" element={<ChangePassword />} />
         </Routes>
       </div>
     </>

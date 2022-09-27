@@ -88,7 +88,7 @@ export const loginWithGoogle = asyncHandler(async (req, res) => {
     expiresIn: "2h",
   });
   res.cookie("token", token, { maxAge: 7200000, httpOnly: true, path: "/" });
-  res.status(200).json({ msg: "Success", name: name });
+  res.status(200).json({ msg: "Success", email: email });
 });
 
 export const sellersLoginWithGoogle = asyncHandler(async (req, res) => {

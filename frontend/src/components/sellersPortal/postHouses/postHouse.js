@@ -6,6 +6,8 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import UserService from "../../../services/user.service";
+import { email } from "../../../services/auth.service";
 
 export const PostHouse = () => {
   const [newHouse, setNewHouse] = useState({
@@ -20,8 +22,18 @@ export const PostHouse = () => {
   const navigate = useNavigate();
   useEffect(() => {
     const user = localStorage.getItem("user");
+    const getUserInfo = async () => {
+      try {
+        await UserService.getUserInfo(email);
+      } catch (error) {
+        toast.error(error);
+      }
+    };
+
     if (!user) {
       navigate("/sellers/login");
+    } else {
+      getUserInfo();
     }
   }, []);
   let feedback = "";

@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API_URL = "https://househunters-express-server.herokuapp.com/";
 export let success;
-export let resonse = "/";
+export let email = "";
 class AuthService {
   async register(username, email, password, seller) {
     return await axios
@@ -48,6 +48,9 @@ class AuthService {
       })
       .then((response) => {
         if (response.status == 200) {
+          console.log(response);
+          email = JSON.stringify(response.data.email);
+          console.log(email);
           localStorage.setItem("user", JSON.stringify(response.data.name));
           localStorage.getItem("user");
         }
